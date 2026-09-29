@@ -7,37 +7,30 @@ const API_URL = "http://localhost:8080";
 
 function showSection(sectionId, clickedButton) {
 
-    // Hide all sections
     const sections = document.querySelectorAll(".page-section");
 
     sections.forEach(function (section) {
         section.classList.remove("active-section");
     });
 
-
-    // Show selected section
-    const selectedSection = document.getElementById(sectionId);
+    const selectedSection =
+        document.getElementById(sectionId);
 
     if (selectedSection) {
         selectedSection.classList.add("active-section");
     }
 
-
-    // Remove active from all sidebar buttons
-    const navItems = document.querySelectorAll(".nav-item");
+    const navItems =
+        document.querySelectorAll(".nav-item");
 
     navItems.forEach(function (item) {
         item.classList.remove("active");
     });
 
-
-    // Add active to clicked button
     if (clickedButton) {
         clickedButton.classList.add("active");
     }
 
-
-    // Load data automatically
     if (sectionId === "scholarships") {
         loadScholarships();
     }
@@ -94,7 +87,6 @@ async function loadDashboardStats() {
         console.log(
             "Dashboard statistics could not be loaded."
         );
-
     }
 }
 
@@ -106,7 +98,10 @@ async function loadDashboardStats() {
 async function getStudent() {
 
     const studentId =
-        document.getElementById("studentId").value.trim();
+        document
+            .getElementById("studentId")
+            .value
+            .trim();
 
 
     if (studentId === "") {
@@ -139,7 +134,8 @@ async function getStudent() {
         if (!response.ok) {
 
             throw new Error(
-                "Student not found with ID: " + studentId
+                "Student not found with ID: " +
+                studentId
             );
         }
 
@@ -170,31 +166,60 @@ async function getStudent() {
 
                         <div>
                             <span>Email</span>
+
                             <strong>
                                 ${student.email}
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Marks</span>
+
                             <strong>
                                 ${student.marks}
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Annual Income</span>
+
                             <strong>
                                 ₹${student.annualIncome}
                             </strong>
                         </div>
 
+
                         <div>
                             <span>Student ID</span>
+
                             <strong>
                                 #${student.id}
                             </strong>
                         </div>
+
+                    </div>
+
+
+                    <!-- UPDATE AND DELETE BUTTONS -->
+
+                    <div class="student-actions">
+
+                        <button
+                            onclick="updateStudent(${student.id})">
+
+                            ✏️ Update
+
+                        </button>
+
+
+                        <button
+                            onclick="deleteStudent(${student.id})">
+
+                            🗑️ Delete
+
+                        </button>
 
                     </div>
 
@@ -209,6 +234,7 @@ async function getStudent() {
             document.getElementById(
                 "studentDetailsPlaceholder"
             );
+
 
         if (placeholder) {
 
@@ -229,6 +255,7 @@ async function getStudent() {
 
             `;
         }
+
 
     } catch (error) {
 
@@ -252,19 +279,19 @@ async function getStudent() {
 function openAddStudentModal() {
 
     const modal =
-        document.getElementById("addStudentModal");
+        document.getElementById(
+            "addStudentModal"
+        );
 
 
     modal.classList.add("show");
 
 
-    // Clear previous result
     document.getElementById(
         "addStudentResult"
     ).innerHTML = "";
 
 
-    // Focus name field
     setTimeout(function () {
 
         document
@@ -282,24 +309,28 @@ function openAddStudentModal() {
 function closeAddStudentModal() {
 
     const modal =
-        document.getElementById("addStudentModal");
+        document.getElementById(
+            "addStudentModal"
+        );
 
 
     modal.classList.remove("show");
 
 
-    // Clear form
     document.getElementById(
         "newStudentName"
     ).value = "";
+
 
     document.getElementById(
         "newStudentEmail"
     ).value = "";
 
+
     document.getElementById(
         "newStudentMarks"
     ).value = "";
+
 
     document.getElementById(
         "newStudentIncome"
@@ -321,13 +352,15 @@ async function addStudent() {
     const name =
         document
             .getElementById("newStudentName")
-            .value.trim();
+            .value
+            .trim();
 
 
     const email =
         document
             .getElementById("newStudentEmail")
-            .value.trim();
+            .value
+            .trim();
 
 
     const marks =
@@ -376,9 +409,14 @@ async function addStudent() {
     }
 
 
-    if (Number(marks) < 0 || Number(marks) > 100) {
+    if (
+        Number(marks) < 0 ||
+        Number(marks) > 100
+    ) {
 
-        alert("Marks must be between 0 and 100");
+        alert(
+            "Marks must be between 0 and 100"
+        );
 
         return;
     }
@@ -399,7 +437,6 @@ async function addStudent() {
     `;
 
 
-    // Student object
     const studentData = {
 
         name: name,
@@ -466,29 +503,31 @@ async function addStudent() {
         `;
 
 
-        // Update dashboard count
         loadDashboardStats();
 
 
         // Clear form
+
         document.getElementById(
             "newStudentName"
         ).value = "";
+
 
         document.getElementById(
             "newStudentEmail"
         ).value = "";
 
+
         document.getElementById(
             "newStudentMarks"
         ).value = "";
+
 
         document.getElementById(
             "newStudentIncome"
         ).value = "";
 
 
-        // Close modal after 1.5 seconds
         setTimeout(function () {
 
             closeAddStudentModal();
@@ -514,6 +553,305 @@ async function addStudent() {
             </div>
 
         `;
+    }
+}
+
+
+// =====================================================
+// UPDATE STUDENT
+// =====================================================
+
+async function updateStudent(id) {
+
+    try {
+
+        // First get existing student
+        const getResponse =
+            await fetch(
+                API_URL + "/students/" + id
+            );
+
+
+        if (!getResponse.ok) {
+
+            throw new Error(
+                "Student not found"
+            );
+        }
+
+
+        const student =
+            await getResponse.json();
+
+
+        // Ask for updated name
+
+        const name =
+            prompt(
+                "Enter Student Name:",
+                student.name
+            );
+
+
+        if (name === null) {
+            return;
+        }
+
+
+        // Ask for updated email
+
+        const email =
+            prompt(
+                "Enter Email:",
+                student.email
+            );
+
+
+        if (email === null) {
+            return;
+        }
+
+
+        // Ask for updated marks
+
+        const marks =
+            prompt(
+                "Enter Marks:",
+                student.marks
+            );
+
+
+        if (marks === null) {
+            return;
+        }
+
+
+        // Ask for updated income
+
+        const annualIncome =
+            prompt(
+                "Enter Annual Income:",
+                student.annualIncome
+            );
+
+
+        if (annualIncome === null) {
+            return;
+        }
+
+
+        // Validation
+
+        if (name.trim() === "") {
+
+            alert(
+                "Student name cannot be empty"
+            );
+
+            return;
+        }
+
+
+        if (email.trim() === "") {
+
+            alert(
+                "Email cannot be empty"
+            );
+
+            return;
+        }
+
+
+        if (
+            Number(marks) < 0 ||
+            Number(marks) > 100
+        ) {
+
+            alert(
+                "Marks must be between 0 and 100"
+            );
+
+            return;
+        }
+
+
+        if (
+            annualIncome === "" ||
+            Number(annualIncome) < 0
+        ) {
+
+            alert(
+                "Please enter a valid annual income"
+            );
+
+            return;
+        }
+
+
+        // Updated object
+
+        const updatedStudent = {
+
+            name: name.trim(),
+
+            email: email.trim(),
+
+            marks: Number(marks),
+
+            annualIncome:
+                Number(annualIncome)
+
+        };
+
+
+        // PUT request
+
+        const response =
+            await fetch(
+                API_URL + "/students/" + id,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            updatedStudent
+                        )
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                errorText ||
+                "Unable to update student"
+            );
+        }
+
+
+        await response.json();
+
+
+        alert(
+            "✅ Student updated successfully!"
+        );
+
+
+        // Refresh student details
+
+        document.getElementById(
+            "studentId"
+        ).value = id;
+
+
+        getStudent();
+
+
+        // Update dashboard
+
+        loadDashboardStats();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "❌ Failed to update student: " +
+            error.message
+        );
+    }
+}
+
+
+// =====================================================
+// DELETE STUDENT
+// =====================================================
+
+async function deleteStudent(id) {
+
+    const confirmDelete =
+        confirm(
+            "Are you sure you want to delete Student ID #" +
+            id +
+            "?"
+        );
+
+
+    if (!confirmDelete) {
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                API_URL + "/students/" + id,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorText =
+                await response.text();
+
+            throw new Error(
+                errorText ||
+                "Unable to delete student"
+            );
+        }
+
+
+        await response.text();
+
+
+        alert(
+            "✅ Student deleted successfully!"
+        );
+
+
+        // Clear student result
+
+        document.getElementById(
+            "studentResult"
+        ).innerHTML = "";
+
+
+        // Clear student ID
+
+        document.getElementById(
+            "studentId"
+        ).value = "";
+
+
+        // Update dashboard
+
+        loadDashboardStats();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+
+        alert(
+            "❌ Failed to delete student: " +
+            error.message
+        );
     }
 }
 
@@ -660,17 +998,18 @@ async function loadScholarships() {
         );
 
 
-        // Dashboard count
         const scholarshipCount =
             document.getElementById(
                 "scholarshipCount"
             );
+
 
         if (scholarshipCount) {
 
             scholarshipCount.textContent =
                 scholarships.length;
         }
+
 
     } catch (error) {
 
@@ -707,13 +1046,18 @@ async function getEligibleScholarships() {
 
     const studentId =
         document
-            .getElementById("eligibleStudentId")
-            .value.trim();
+            .getElementById(
+                "eligibleStudentId"
+            )
+            .value
+            .trim();
 
 
     if (studentId === "") {
 
-        alert("Please enter Student ID");
+        alert(
+            "Please enter Student ID"
+        );
 
         return;
     }
@@ -857,6 +1201,7 @@ async function getEligibleScholarships() {
             }
         );
 
+
     } catch (error) {
 
         container.innerHTML = `
@@ -883,12 +1228,15 @@ async function getApplications() {
             .getElementById(
                 "applicationStudentId"
             )
-            .value.trim();
+            .value
+            .trim();
 
 
     if (studentId === "") {
 
-        alert("Please enter Student ID");
+        alert(
+            "Please enter Student ID"
+        );
 
         return;
     }
@@ -970,7 +1318,8 @@ async function getApplications() {
             function (application) {
 
                 const status =
-                    application.status || "PENDING";
+                    application.status ||
+                    "PENDING";
 
 
                 let statusClass =
@@ -1067,6 +1416,7 @@ async function getApplications() {
                 `;
             }
         );
+
 
     } catch (error) {
 
