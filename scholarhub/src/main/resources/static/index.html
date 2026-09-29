@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ScholarHub - Scholarship Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     MAIN LAYOUT
+===================================================== -->
+
+<div class="app-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🎓
+            </div>
+
+            <div>
+                <h2>ScholarHub</h2>
+                <span>Scholarship Portal</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <button
+                    class="nav-item active"
+                    onclick="showSection('dashboard', this)">
+
+                <span>🏠</span>
+                <span>Dashboard</span>
+
+            </button>
+
+
+            <button
+                    class="nav-item"
+                    onclick="showSection('students', this)">
+
+                <span>👨‍🎓</span>
+                <span>Students</span>
+
+            </button>
+
+
+            <button
+                    class="nav-item"
+                    onclick="showSection('scholarships', this)">
+
+                <span>🎓</span>
+                <span>Scholarships</span>
+
+            </button>
+
+
+            <button
+                    class="nav-item"
+                    onclick="showSection('eligibility', this)">
+
+                <span>✅</span>
+                <span>Eligibility</span>
+
+            </button>
+
+
+            <button
+                    class="nav-item"
+                    onclick="showSection('applications', this)">
+
+                <span>📄</span>
+                <span>Applications</span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-info">
+
+                <div class="info-icon">
+                    💡
+                </div>
+
+                <div>
+                    <strong>Scholar Tip</strong>
+                    <p>Check eligibility before applying.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div>
+
+                <p class="welcome-text">
+                    WELCOME BACK
+                </p>
+
+                <h1>
+                    Scholarship Dashboard
+                </h1>
+
+            </div>
+
+
+            <div class="profile-area">
+
+                <span class="notification">
+                    🔔
+                </span>
+
+                <div class="profile-avatar">
+                    A
+                </div>
+
+                <div class="profile-details">
+
+                    <strong>Admin</strong>
+
+                    <span>Scholarship Manager</span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             DASHBOARD SECTION
+        ================================================== -->
+
+        <section id="dashboard" class="page-section active-section">
+
+
+            <!-- HERO -->
+
+            <div class="hero-card">
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        SMART SCHOLARSHIP MANAGEMENT
+                    </span>
+
+                    <h2>
+                        Find the right scholarship
+                        for every student.
+                    </h2>
+
+                    <p>
+                        Manage students, scholarships,
+                        eligibility and applications
+                        from one simple dashboard.
+                    </p>
+
+                    <button
+                            class="hero-btn"
+                            onclick="showScholarships()">
+
+                        Explore Scholarships →
+
+                    </button>
+
+                </div>
+
+
+                <div class="hero-icon">
+                    🎓
+                </div>
+
+            </div>
+
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon student-stat">
+                        👨‍🎓
+                    </div>
+
+                    <div>
+                        <span>Total Students</span>
+
+                        <strong id="studentCount">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon scholarship-stat">
+                        🎓
+                    </div>
+
+                    <div>
+                        <span>Scholarships</span>
+
+                        <strong id="scholarshipCount">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon eligibility-stat">
+                        ✅
+                    </div>
+
+                    <div>
+                        <span>Eligibility</span>
+
+                        <strong>
+                            Check
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon application-stat">
+                        📄
+                    </div>
+
+                    <div>
+                        <span>Applications</span>
+
+                        <strong>
+                            Track
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-label">
+                            QUICK ACCESS
+                        </span>
+
+                        <h2>
+                            Manage ScholarHub
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <div class="quick-grid">
+
+                    <button
+                            class="quick-card"
+                            onclick="showSection('students')">
+
+                        <span>👨‍🎓</span>
+
+                        <div>
+                            <strong>Students</strong>
+                            <small>
+                                View and add students
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                            class="quick-card"
+                            onclick="showSection('scholarships')">
+
+                        <span>🎓</span>
+
+                        <div>
+                            <strong>Scholarships</strong>
+                            <small>
+                                Browse scholarship schemes
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                            class="quick-card"
+                            onclick="showSection('eligibility')">
+
+                        <span>✅</span>
+
+                        <div>
+                            <strong>Eligibility</strong>
+                            <small>
+                                Check student eligibility
+                            </small>
+                        </div>
+
+                    </button>
+
+
+                    <button
+                            class="quick-card"
+                            onclick="showSection('applications')">
+
+                        <span>📄</span>
+
+                        <div>
+                            <strong>Applications</strong>
+                            <small>
+                                Track application status
+                            </small>
+                        </div>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             STUDENTS SECTION
+        ================================================== -->
+
+        <section id="students" class="page-section">
+
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    STUDENT MANAGEMENT
+                </span>
+
+                <h2>
+                    Students
+                </h2>
+
+                <p>
+                    Search existing students or create a new
+                    student profile.
+                </p>
+
+            </div>
+
+
+
+            <!-- STUDENT SEARCH CARD -->
+
+            <div class="search-card">
+
+                <div class="search-card-header">
+
+                    <div>
+
+                        <h3>
+                            Find Student
+                        </h3>
+
+                        <p>
+                            Enter Student ID to view student details.
+                        </p>
+
+                    </div>
+
+                    <span class="card-icon">
+                        🔍
+                    </span>
+
+                </div>
+
+
+                <div class="student-search-row">
+
+                    <div class="student-search-input">
+
+                        <label>
+                            Student ID
+                        </label>
+
+                        <input
+                                type="number"
+                                id="studentId"
+                                placeholder="Enter Student ID">
+
+                    </div>
+
+
+                    <button
+                            class="primary-btn"
+                            onclick="getStudent()">
+
+                        🔍 Get Student
+
+                    </button>
+
+
+                    <button
+                            class="add-student-dashboard-btn"
+                            onclick="openAddStudentModal()">
+
+                        ＋ Add Student
+
+                    </button>
+
+                </div>
+
+
+                <div id="studentResult"></div>
+
+            </div>
+
+
+
+            <!-- STUDENT INFORMATION -->
+
+            <div class="content-section">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <span class="section-label">
+                            STUDENT PROFILE
+                        </span>
+
+                        <h2>
+                            Student Details
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                <div id="studentDetailsPlaceholder"
+                     class="empty-state">
+
+                    <div>
+                        👨‍🎓
+                    </div>
+
+                    <h3>
+                        Search for a student
+                    </h3>
+
+                    <p>
+                        Enter a Student ID above to view
+                        complete student details.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SCHOLARSHIPS SECTION
+        ================================================== -->
+
+        <section id="scholarships" class="page-section">
+
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    SCHOLARSHIP DIRECTORY
+                </span>
+
+                <h2>
+                    Available Scholarships
+                </h2>
+
+                <p>
+                    Explore scholarship schemes and their
+                    eligibility requirements.
+                </p>
+
+            </div>
+
+
+            <div class="action-card">
+
+                <div>
+
+                    <h3>
+                        Scholarship Directory
+                    </h3>
+
+                    <p>
+                        Load all available scholarship schemes.
+                    </p>
+
+                </div>
+
+
+                <button
+                        class="primary-btn"
+                        onclick="loadScholarships()">
+
+                    🔄 Load Scholarships
+
+                </button>
+
+            </div>
+
+
+            <div
+                    id="scholarshipList"
+                    class="scholarship-grid">
+
+                <div class="empty-state">
+
+                    <div>
+                        🎓
+                    </div>
+
+                    <h3>
+                        No scholarships loaded
+                    </h3>
+
+                    <p>
+                        Click "Load Scholarships" to view
+                        available scholarships.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ELIGIBILITY SECTION
+        ================================================== -->
+
+        <section id="eligibility" class="page-section">
+
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    ELIGIBILITY CHECK
+                </span>
+
+                <h2>
+                    Scholarship Eligibility
+                </h2>
+
+                <p>
+                    Check which scholarships a student qualifies for.
+                </p>
+
+            </div>
+
+
+            <div class="search-card">
+
+                <div class="search-card-header">
+
+                    <div>
+
+                        <h3>
+                            Check Eligibility
+                        </h3>
+
+                        <p>
+                            Enter a Student ID to find eligible
+                            scholarships.
+                        </p>
+
+                    </div>
+
+                    <span class="card-icon">
+                        ✅
+                    </span>
+
+                </div>
+
+
+                <div class="student-search-row">
+
+                    <div class="student-search-input">
+
+                        <label>
+                            Student ID
+                        </label>
+
+                        <input
+                                type="number"
+                                id="eligibleStudentId"
+                                placeholder="Enter Student ID">
+
+                    </div>
+
+
+                    <button
+                            class="primary-btn"
+                            onclick="getEligibleScholarships()">
+
+                        ✅ Check Eligibility
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                    id="eligibleList"
+                    class="scholarship-grid">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             APPLICATIONS SECTION
+        ================================================== -->
+
+        <section id="applications" class="page-section">
+
+
+            <div class="page-title">
+
+                <span class="section-label">
+                    APPLICATION TRACKER
+                </span>
+
+                <h2>
+                    My Applications
+                </h2>
+
+                <p>
+                    Track scholarship applications and
+                    verification status.
+                </p>
+
+            </div>
+
+
+            <div class="search-card">
+
+                <div class="search-card-header">
+
+                    <div>
+
+                        <h3>
+                            View Applications
+                        </h3>
+
+                        <p>
+                            Enter Student ID to view applications.
+                        </p>
+
+                    </div>
+
+                    <span class="card-icon">
+                        📄
+                    </span>
+
+                </div>
+
+
+                <div class="student-search-row">
+
+                    <div class="student-search-input">
+
+                        <label>
+                            Student ID
+                        </label>
+
+                        <input
+                                type="number"
+                                id="applicationStudentId"
+                                placeholder="Enter Student ID">
+
+                    </div>
+
+
+                    <button
+                            class="primary-btn"
+                            onclick="getApplications()">
+
+                        📄 View Applications
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                    id="applicationList"
+                    class="application-grid">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="footer">
+
+            <div>
+                🎓 <strong>ScholarHub</strong>
+            </div>
+
+            <span>
+                Scholarship Application & Eligibility Tracker
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADD STUDENT MODAL
+===================================================== -->
+
+<div
+        id="addStudentModal"
+        class="modal-overlay">
+
+
+    <div class="add-student-modal">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <div class="modal-title">
+                    🎓 Add New Student
+                </div>
+
+                <p>
+                    Enter student details to create
+                    a new profile.
+                </p>
+
+            </div>
+
+
+            <button
+                    class="modal-close"
+                    onclick="closeAddStudentModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+
+        <!-- MODAL BODY -->
+
+        <div class="modal-body">
+
+
+            <div class="form-group">
+
+                <label>
+                    Student Name
+                </label>
+
+                <input
+                        type="text"
+                        id="newStudentName"
+                        placeholder="Enter student name">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <input
+                        type="email"
+                        id="newStudentEmail"
+                        placeholder="Enter email address">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Marks
+                </label>
+
+                <input
+                        type="number"
+                        id="newStudentMarks"
+                        placeholder="Enter marks (0 - 100)"
+                        min="0"
+                        max="100">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Annual Income
+                </label>
+
+                <input
+                        type="number"
+                        id="newStudentIncome"
+                        placeholder="Enter annual income">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MODAL FOOTER -->
+
+        <div class="modal-footer">
+
+            <button
+                    class="cancel-btn"
+                    onclick="closeAddStudentModal()">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                    class="add-student-btn"
+                    onclick="addStudent()">
+
+                ＋ Add Student
+
+            </button>
+
+        </div>
+
+
+        <div id="addStudentResult"></div>
+
+
+    </div>
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
